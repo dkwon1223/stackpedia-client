@@ -7,6 +7,10 @@ import './index.css';
 const router = createBrowserRouter([
   {
     path: "/",
+    // Component: Hero
+  },
+  {
+    path: "/home",
     Component: RootLayout,
     children: [
       // { path: "*", Component: Home },
