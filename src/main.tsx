@@ -1,7 +1,7 @@
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
-import { createBrowserRouter, RouterProvider } from 'react-router'
-import RootLayout from '@pages/RootLayout/RootLayout'
+import { createBrowserRouter, RouterProvider } from 'react-router';
+import RootLayout from '@pages/RootLayout/RootLayout';
 import './index.css';
 
 const router = createBrowserRouter([
