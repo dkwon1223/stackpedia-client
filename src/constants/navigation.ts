@@ -1,7 +1,24 @@
-import type { WebNavConfig } from "@/types/navigation";
+import type { HeroNavConfig, WebNavConfig } from "@/types/navigation";
 import { ArrowRightStartOnRectangleIcon, Cog8ToothIcon, HomeIcon, InformationCircleIcon, LightBulbIcon, PresentationChartBarIcon, QuestionMarkCircleIcon, ShieldCheckIcon, SparklesIcon, Square3Stack3DIcon, UserIcon, WrenchScrewdriverIcon } from "@heroicons/react/16/solid";
 
-export const webNavConfig: WebNavConfig = {
+export const HERO_NAV_CONFIG: HeroNavConfig = {
+    heroNavItems: [
+        {
+            label: 'Product',
+            href: '/product'
+        },
+        {
+            label: 'Features',
+            href: '/features'
+        },
+        {
+            label: 'Community',
+            href: '/community'
+        },
+    ]
+};
+
+export const WEB_NAV_CONFIG: WebNavConfig = {
     header: {
         appName: 'StackPedia',
         avatarSrc: '/stack.svg',
@@ -25,7 +42,7 @@ export const webNavConfig: WebNavConfig = {
                 label: 'Privacy policy'
             },
             {
-                href: '/share-feedback',
+                href: 'share-feedback',
                 icon: LightBulbIcon,
                 label: 'Share feedback'
             }
@@ -61,7 +78,7 @@ export const webNavConfig: WebNavConfig = {
                 label: 'Support'
             },
             {
-                href: '/changelog',
+                href: 'changelog',
                 icon: SparklesIcon,
                 label: 'Changelog'
             }
@@ -90,7 +107,7 @@ export const webNavConfig: WebNavConfig = {
                 label: 'Privacy policy'
             },
             {
-                href: '/share-feedback',
+                href: 'share-feedback',
                 icon: LightBulbIcon,
                 label: 'Share feedback'
             },
@@ -98,10 +115,10 @@ export const webNavConfig: WebNavConfig = {
                 divider: true
             },
             {
-                href: '/logout',
+                href: '/',
                 icon: ArrowRightStartOnRectangleIcon,
                 label: 'Sign out'
             }
         ]
     }
-}
+};

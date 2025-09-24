@@ -1,7 +1,7 @@
 import { SidebarLayout } from '@/components/catalyst/sidebar-layout';
 import MobileNav from '@/components/custom/MobileNav/MobileNav';
 import WebNav from '@/components/custom/WebNav/WebNav';
-import type { FC } from 'react';
+import { type FC } from 'react';
 import { Outlet } from 'react-router';
 
 const RootLayout: FC = () => {

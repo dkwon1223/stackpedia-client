@@ -1,3 +1,7 @@
+export type HeroNavConfig = {
+    heroNavItems: BaseNavItem[];
+}
+
 export type WebNavConfig = {
     header: {
         appName: string;

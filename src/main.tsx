@@ -15,9 +15,17 @@ import Support from './pages/Support/Support';
 import Changelog from './pages/Changelog/Changelog';
 import PrivacyPolicy from './pages/PrivacyPolicy/PrivacyPolicy';
 import Feedback from './pages/Feedback/Feedback';
+import Login from './pages/Login/Login';
 
 const router = createBrowserRouter([
-  { path: "/", Component: Hero },
+  { 
+    path: "/", 
+    Component: Hero,
+    children: [
+      { index: true, Component: Hero },
+    ]
+  },
+  { path: "/login", Component: Login },
   {
     path: "/app",
     Component: RootLayout,
@@ -34,11 +42,11 @@ const router = createBrowserRouter([
       { path: "support", Component: Support },
       { path: "my-profile", Component: Profile },
       { path: "settings", Component: SettingsPage },
+      { path: "changelog", Component: Changelog },
+      { path: "share-feedback", Component: Feedback },
     ],
   },
-  { path: "changelog", Component: Changelog },
   { path: "privacy-policy", Component: PrivacyPolicy },
-  { path: "share-feedback", Component: Feedback },
 ]);
 
 createRoot(document.getElementById('root')!).render(

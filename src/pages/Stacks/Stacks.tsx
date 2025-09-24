@@ -1,7 +1,7 @@
 const Stacks = () => {
   return (
     <div>Stacks</div>
-  )
-}
+  );
+};
 
-export default Stacks
+export default Stacks;
