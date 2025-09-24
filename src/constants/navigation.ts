@@ -7,7 +7,7 @@ export const webNavConfig: WebNavConfig = {
         avatarSrc: '/stack.svg',
         dropdownItems: [
             {
-                href: '/settings',
+                href: 'settings',
                 icon: Cog8ToothIcon,
                 label: 'Settings'
             },
@@ -18,35 +18,45 @@ export const webNavConfig: WebNavConfig = {
                 href: '/',
                 icon: InformationCircleIcon,
                 label: 'Marketing'
+            },
+            {
+                href: '/privacy-policy',
+                icon: ShieldCheckIcon,
+                label: 'Privacy policy'
+            },
+            {
+                href: '/share-feedback',
+                icon: LightBulbIcon,
+                label: 'Share feedback'
             }
         ]
     },
     body: {
         mainNavItems: [
             {
-                href: '/home',
+                href: '/app',
                 icon: HomeIcon,
                 label: 'Home'
             },
             {
-                href: '/technologies',
+                href: 'technologies',
                 icon: WrenchScrewdriverIcon,
                 label: 'Technologies'
             },
             {
-                href: '/stacks',
+                href: 'stacks',
                 icon: Square3Stack3DIcon,
                 label: 'Stacks'
             },
             {
-                href: '/projects',
+                href: 'projects',
                 icon: PresentationChartBarIcon,
                 label: 'Projects'
             },
         ],
         lowerNavItems: [
             {
-                href: '/support',
+                href: 'support',
                 icon: QuestionMarkCircleIcon,
                 label: 'Support'
             },
@@ -62,12 +72,12 @@ export const webNavConfig: WebNavConfig = {
         userEmail: 'erica@example.com',
         dropdownItems: [
             {
-                href: '/my-profile',
+                href: 'my-profile',
                 icon: UserIcon,
                 label: 'My profile'
             },
             {
-                href: '/settings',
+                href: 'settings',
                 icon: Cog8ToothIcon,
                 label: 'Settings'
             },
