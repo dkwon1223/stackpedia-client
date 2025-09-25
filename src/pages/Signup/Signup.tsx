@@ -1,15 +1,13 @@
-import { AuthLayout } from "@/components/catalyst/auth-layout"
-import { Button } from "@/components/catalyst/button"
-import { Checkbox, CheckboxField } from "@/components/catalyst/checkbox"
-import { Field, Label } from "@/components/catalyst/fieldset"
-import { Heading } from "@/components/catalyst/heading"
-import { Input } from "@/components/catalyst/input"
-import { Strong, Text, TextLink } from "@/components/catalyst/text"
+import { AuthLayout } from "@/components/catalyst/auth-layout";
+import { Button } from "@/components/catalyst/button";
+import { Field, Label } from "@/components/catalyst/fieldset";
+import { Heading } from "@/components/catalyst/heading";
+import { Input } from "@/components/catalyst/input";
 
 const Signup = () => {
   return (
     <>
-      <section className="h-screen w-screen bg-slate-900">
+      <section className="h-screen w-screen bg-slate-950">
         <AuthLayout>
           <form action="#" method="POST" className="grid w-full max-w-sm grid-cols-1 gap-8">
             <img
@@ -81,7 +79,7 @@ const Signup = () => {
         </AuthLayout>
       </section>
     </>
-  )
-}
+  );
+};
 
-export default Signup
+export default Signup;

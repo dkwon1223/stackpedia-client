@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { apiClient } from "../client";
-import { Technology } from "../../model/types";
+import { type Technology } from "@/types/technology";
 
 export const useTechnologies = (categoryId?: string) => {
   const { data, isPending, isError, error, isFetching, refetch } = useQuery({

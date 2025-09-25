@@ -9,7 +9,7 @@ import { Strong, Text, TextLink } from "@/components/catalyst/text";
 const Login = () => {
   return (
     <>
-      <section className="h-screen w-screen bg-slate-900">
+      <section className="h-screen w-screen bg-slate-950">
         <AuthLayout>
           <form action="#" method="POST" className="grid w-full max-w-sm grid-cols-1 gap-8">
             <img
@@ -98,7 +98,7 @@ const Login = () => {
         </AuthLayout>
       </section>
     </>
-  )
-}
+  );
+};
 
 export default Login;
