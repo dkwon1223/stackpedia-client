@@ -16,6 +16,11 @@ import Changelog from './pages/Changelog/Changelog';
 import PrivacyPolicy from './pages/PrivacyPolicy/PrivacyPolicy';
 import Feedback from './pages/Feedback/Feedback';
 import Login from './pages/Login/Login';
+import Signup from './pages/Signup/Signup';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
+import type { AxiosError } from 'axios';
+import axios from 'axios';
 
 const router = createBrowserRouter([
   { 
@@ -26,6 +31,7 @@ const router = createBrowserRouter([
     ]
   },
   { path: "/login", Component: Login },
+  { path: "/signup", Component: Signup },
   {
     path: "/app",
     Component: RootLayout,
@@ -49,8 +55,26 @@ const router = createBrowserRouter([
   { path: "privacy-policy", Component: PrivacyPolicy },
 ]);
 
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      meta: {
+        errorHandler: (error: AxiosError) => {
+          if (axios.isAxiosError(error)) {
+            const status = error.response?.status
+            return { status, handled: true }
+          }
+        }
+      }
+    }
+  }
+});
+
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <RouterProvider router={router} />
+    <QueryClientProvider client={queryClient}>
+      <RouterProvider router={router} />
+      <ReactQueryDevtools />
+    </QueryClientProvider>
   </StrictMode>,
 );

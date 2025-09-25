@@ -1,12 +1,10 @@
 import { AuthLayout } from "@/components/catalyst/auth-layout";
 import { Button } from "@/components/catalyst/button";
-import { Checkbox, CheckboxField } from "@/components/catalyst/checkbox";
 import { Field, Label } from "@/components/catalyst/fieldset";
 import { Heading } from "@/components/catalyst/heading";
 import { Input } from "@/components/catalyst/input";
-import { Strong, Text, TextLink } from "@/components/catalyst/text";
 
-const Login = () => {
+const Signup = () => {
   return (
     <>
       <section className="h-screen w-screen bg-slate-950">
@@ -17,7 +15,7 @@ const Login = () => {
               src="/stack.svg"
               className="mx-auto h-10 w-auto"
             />
-            <Heading>Sign in to your account</Heading>
+            <Heading>Sign up for your account</Heading>
             <Field>
               <Label>Email</Label>
               <Input type="email" name="email" />
@@ -26,19 +24,8 @@ const Login = () => {
               <Label>Password</Label>
               <Input type="password" name="password" />
             </Field>
-            <div className="flex items-center justify-between">
-              <CheckboxField>
-                <Checkbox name="remember" />
-                <Label>Remember me</Label>
-              </CheckboxField>
-              <Text>
-                <TextLink href="#">
-                  <Strong>Forgot password?</Strong>
-                </TextLink>
-              </Text>
-            </div>
             <Button type="submit" className="w-full" color="indigo">
-              Login
+              Sign up
             </Button>
             <div>
                 <div className="flex items-center gap-x-6">
@@ -88,12 +75,6 @@ const Login = () => {
                   </a>
                 </div>
               </div>
-            <Text>
-              Don’t have an account?{' '}
-              <TextLink href="/signup">
-                <Strong>Sign up</Strong>
-              </TextLink>
-            </Text>
           </form>
         </AuthLayout>
       </section>
@@ -101,4 +82,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default Signup;

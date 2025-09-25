@@ -58,7 +58,7 @@ const Hero = () => {
                 <span className="sr-only">Your Company</span>
                 <img
                   alt=""
-                  src="https://tailwindcss.com/plus-assets/img/logos/mark.svg?color=indigo&shade=500"
+                  src="/stack.svg"
                   className="h-8 w-auto"
                 />
               </a>
@@ -165,7 +165,7 @@ const Hero = () => {
                     <div className="relative">
                       <img
                         alt=""
-                        src={HeroImage1}
+                        src={HeroImage5}
                         className="aspect-2/3 w-full rounded-xl bg-gray-700/5 object-cover shadow-lg"
                       />
                       <div className="pointer-events-none absolute inset-0 rounded-xl ring-1 ring-white/10 ring-inset" />
@@ -175,15 +175,16 @@ const Hero = () => {
                     <div className="relative">
                       <img
                         alt=""
-                        src={HeroImage2}
+                        src={HeroImage4}
                         className="aspect-2/3 w-full rounded-xl bg-gray-700/5 object-cover shadow-lg"
-                      />
+                        />
                       <div className="pointer-events-none absolute inset-0 rounded-xl ring-1 ring-white/10 ring-inset" />
                     </div>
                     <div className="relative">
                       <img
                         alt=""
                         src={HeroImage3}
+                        className="aspect-2/3 w-full rounded-xl bg-gray-700/5 object-cover shadow-lg"
                       />
                       <div className="pointer-events-none absolute inset-0 rounded-xl ring-1 ring-white/10 ring-inset" />
                     </div>
@@ -192,7 +193,7 @@ const Hero = () => {
                     <div className="relative">
                       <img
                         alt=""
-                        src={HeroImage5}
+                        src={HeroImage1}
                         className="aspect-2/3 w-full rounded-xl bg-gray-700/5 object-cover shadow-lg"
                       />
                       <div className="pointer-events-none absolute inset-0 rounded-xl ring-1 ring-white/10 ring-inset" />
@@ -200,7 +201,7 @@ const Hero = () => {
                     <div className="relative">
                       <img
                         alt=""
-                        src={HeroImage4}
+                        src={HeroImage2}
                         className="aspect-2/3 w-full rounded-xl bg-gray-700/5 object-cover shadow-lg"
                       />
                       <div className="pointer-events-none absolute inset-0 rounded-xl ring-1 ring-white/10 ring-inset" />
