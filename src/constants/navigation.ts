@@ -4,8 +4,8 @@ import { ArrowRightStartOnRectangleIcon, Cog8ToothIcon, HomeIcon, InformationCir
 export const HERO_NAV_CONFIG: HeroNavConfig = {
     heroNavItems: [
         {
-            label: 'Product',
-            href: '/product'
+            label: 'Platform',
+            href: '/platform'
         },
         {
             label: 'Features',

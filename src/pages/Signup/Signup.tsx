@@ -1,7 +1,7 @@
-const Login = () => {
+const Signup = () => {
   return (
     <>
-      <section className="h-full w-full bg-slate-950">
+      <section className="h-screen w-full bg-slate-950">
         <div className="flex min-h-full flex-col justify-center py-12 sm:px-6 lg:px-8">
           <div className="sm:mx-auto sm:w-full sm:max-w-md">
             <img
@@ -9,7 +9,7 @@ const Login = () => {
               src="/stack.svg"
               className="mx-auto h-10 w-auto"
             />
-            <h2 className="mt-6 text-center text-2xl/9 font-bold tracking-tight text-white">Sign in to your account</h2>
+            <h2 className="mt-6 text-center text-2xl/9 font-bold tracking-tight text-white">Sign up for an account</h2>
           </div>
 
           <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-[480px]">
@@ -47,56 +47,12 @@ const Login = () => {
                   </div>
                 </div>
 
-                <div className="flex items-center justify-between">
-                  <div className="flex gap-3">
-                    <div className="flex h-6 shrink-0 items-center">
-                      <div className="group grid size-4 grid-cols-1">
-                        <input
-                          id="remember-me"
-                          name="remember-me"
-                          type="checkbox"
-                          className="col-start-1 row-start-1 appearance-none rounded-sm border border-white/10 bg-white/5 checked:border-indigo-500 checked:bg-indigo-500 indeterminate:border-indigo-500 indeterminate:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500 disabled:border-gray-300 disabled:bg-gray-100 disabled:checked:bg-gray-100 forced-colors:appearance-auto"
-                        />
-                        <svg
-                          fill="none"
-                          viewBox="0 0 14 14"
-                          className="pointer-events-none col-start-1 row-start-1 size-3.5 self-center justify-self-center stroke-white group-has-disabled:stroke-white/25"
-                        >
-                          <path
-                            d="M3 8L6 11L11 3.5"
-                            strokeWidth={2}
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            className="opacity-0 group-has-checked:opacity-100"
-                          />
-                          <path
-                            d="M3 7H11"
-                            strokeWidth={2}
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            className="opacity-0 group-has-indeterminate:opacity-100"
-                          />
-                        </svg>
-                      </div>
-                    </div>
-                    <label htmlFor="remember-me" className="block text-sm/6 text-white">
-                      Remember me
-                    </label>
-                  </div>
-
-                  <div className="text-sm/6">
-                    <a href="#" className="font-semibold text-indigo-400 hover:text-indigo-300">
-                      Forgot password?
-                    </a>
-                  </div>
-                </div>
-
                 <div>
                   <button
                     type="submit"
                     className="flex w-full justify-center rounded-md bg-indigo-500 px-3 py-1.5 text-sm/6 font-semibold text-white hover:bg-indigo-400 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500"
                   >
-                    Sign in
+                    Sign up
                   </button>
                 </div>
               </form>
@@ -150,13 +106,6 @@ const Login = () => {
                 </div>
               </div>
             </div>
-
-            <p className="mt-10 text-center text-sm/6 text-gray-400">
-              Not a member?{' '}
-              <a href="/signup" className="font-semibold text-indigo-400 hover:text-indigo-300">
-                Sign up for an account
-              </a>
-            </p>
           </div>
         </div>
       </section>
@@ -164,4 +113,4 @@ const Login = () => {
   )
 }
 
-export default Login;
+export default Signup

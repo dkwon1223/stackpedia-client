@@ -16,6 +16,7 @@ import Changelog from './pages/Changelog/Changelog';
 import PrivacyPolicy from './pages/PrivacyPolicy/PrivacyPolicy';
 import Feedback from './pages/Feedback/Feedback';
 import Login from './pages/Login/Login';
+import Signup from './pages/Signup/Signup';
 
 const router = createBrowserRouter([
   { 
@@ -26,6 +27,7 @@ const router = createBrowserRouter([
     ]
   },
   { path: "/login", Component: Login },
+  { path: "/signup", Component: Signup },
   {
     path: "/app",
     Component: RootLayout,
