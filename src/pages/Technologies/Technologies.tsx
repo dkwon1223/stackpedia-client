@@ -7,17 +7,24 @@ import { useNavigate } from "react-router";
 import { Input, InputGroup } from "@/components/catalyst/input";
 import { ChevronDownIcon, MagnifyingGlassIcon } from "@heroicons/react/16/solid";
 import { Dropdown, DropdownButton, DropdownItem, DropdownMenu } from "@/components/catalyst/dropdown";
-import { Divider } from "@/components/catalyst/divider";
+import { useCategories } from "@/api/queries/categories";
+import { useState } from "react";
 
 const Technologies = () => {
   const navigate = useNavigate();
+  const [categoryId, setCategoryId] = useState<string>('');
+  const [search, setSearch] = useState<string>('');
   const {
     data: technologies,
     isPending,
     isError,
     error,
     refetch,
-  } = useTechnologies();
+  } = useTechnologies(categoryId);
+
+  const {
+    data: categories
+  } = useCategories();
   /*
   Redis 
   Rails 
@@ -50,6 +57,10 @@ const Technologies = () => {
     return "Failed to load technologies";
   };
 
+  const filteredTechnologies = technologies?.filter((tech) => {
+    return tech.name.toLowerCase().includes(search.toLocaleLowerCase());
+  });
+
   if (isError) {
     return (
       <section className="w-full h-full flex justify-center">
@@ -61,7 +72,6 @@ const Technologies = () => {
           primaryButtonAction={() => navigate("/")}
           secondaryButtonText='Try again'
           secondaryButtonAction={refetch}
-
         />
       </section>
     )
@@ -78,10 +88,10 @@ const Technologies = () => {
   return (
     <main className="w-full h-full">
       <nav className="w-full mb-4 flex">
-        <div className="w-full mr-4">
+        <div className="flex-1 mr-4">
           <InputGroup>
             <MagnifyingGlassIcon />
-            <Input name="search" placeholder="Search&hellip;" aria-label="Search" />
+            <Input onChange={(e) => setSearch(e.target.value)} name="search" placeholder="Search&hellip;" aria-label="Search" />
           </InputGroup>
         </div>
         <Dropdown>
@@ -90,17 +100,21 @@ const Technologies = () => {
           <ChevronDownIcon />
           </DropdownButton>
           <DropdownMenu>
-            <DropdownItem>View</DropdownItem>
-            <DropdownItem>Edit</DropdownItem>
-            <DropdownItem>Delete</DropdownItem>
+            <DropdownItem onClick={() => setCategoryId('')}>All</DropdownItem>
+            {categories?.map((category) => 
+              <DropdownItem onClick={() => setCategoryId(category.id)} value={search}>{category.name}</DropdownItem>
+            )}
           </DropdownMenu>
         </Dropdown>
       </nav>
       <section role="list" className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
         <>
-          {technologies && technologies && technologies.map((technology) => (
-            <TechnologyCard technology={technology} />
-          ))}
+          {filteredTechnologies 
+          ?
+          filteredTechnologies.map((technology) => <TechnologyCard technology={technology} />)
+          :
+          technologies && technologies.map((technology) => <TechnologyCard technology={technology} />)
+          }
         </>
       </section>
     </main>
