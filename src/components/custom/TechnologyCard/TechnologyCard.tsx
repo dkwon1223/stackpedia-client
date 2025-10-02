@@ -1,7 +1,7 @@
-import { EllipsisHorizontalCircleIcon, HeartIcon } from "@heroicons/react/16/solid"
-import type { TechnologyCardProps } from "./props"
-import type { FC } from "react"
-import { LOGO_REGISTRY } from "@/constants/logoRegistry"
+import { EllipsisHorizontalCircleIcon, HeartIcon } from "@heroicons/react/16/solid";
+import type { TechnologyCardProps } from "./props";
+import type { FC } from "react";
+import { LOGO_REGISTRY } from "@/constants/logoRegistry";
 
 const TechnologyCard: FC<TechnologyCardProps> = ({ technology }) => {
   return (
@@ -52,7 +52,7 @@ const TechnologyCard: FC<TechnologyCardProps> = ({ technology }) => {
         </div>
         </div>
     </article>
-  )
-}
+  );
+};
 
-export default TechnologyCard
+export default TechnologyCard;

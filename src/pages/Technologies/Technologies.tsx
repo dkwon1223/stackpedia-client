@@ -25,19 +25,6 @@ const Technologies = () => {
   const {
     data: categories
   } = useCategories();
-  /*
-  Redis 
-  Rails 
-  Auth0
-  
-  Filters:
-    Dropdown
-      -Multiple selections
-      -Selected filters appear in boxes
-      -Boxes have x marks to remove easily without using dropdown
-    Checkbox
-      -Checkbox with things to filter by (bad if you cant fit all categories in one row)
-  */
 
   const getErrorStatusCode = () => {
     if (error && error instanceof AxiosError) {
@@ -74,7 +61,7 @@ const Technologies = () => {
           secondaryButtonAction={refetch}
         />
       </section>
-    )
+    );
   }
 
   if (isPending) {
@@ -82,7 +69,7 @@ const Technologies = () => {
       <section className="w-full h-full flex justify-center">
         <Loader width={100} height={100} scale={5.5} />
       </section>
-    )
+    );
   }
 
   return (

@@ -1,5 +1,5 @@
-import type { FC } from "react"
-import type { ErrorPageProps } from "./props"
+import type { FC } from "react";
+import type { ErrorPageProps } from "./props";
 
 const ErrorPage: FC<ErrorPageProps> = ({ code, message, subText, primaryButtonText, primaryButtonAction, secondaryButtonText, secondaryButtonAction }) => {
   return (
@@ -32,7 +32,7 @@ const ErrorPage: FC<ErrorPageProps> = ({ code, message, subText, primaryButtonTe
             </div>
         </div>
     </main>
-  )
-}
+  );
+};
 
-export default ErrorPage
+export default ErrorPage;

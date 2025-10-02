@@ -119,7 +119,7 @@ const Loader: FC<LoaderProps> = ({ width = 94, height = 136, scale = 1.2 }) => {
       </svg>
     </StyledWrapper>
   );
-}
+};
 
 const StyledWrapper = styled.div<{ scale: number }>`
   #svg-global {
