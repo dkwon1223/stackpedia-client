@@ -61,8 +61,8 @@ const queryClient = new QueryClient({
       meta: {
         errorHandler: (error: AxiosError) => {
           if (axios.isAxiosError(error)) {
-            const status = error.response?.status
-            return { status, handled: true }
+            const status = error.response?.status;
+            return { status, handled: true };
           }
         }
       }
