@@ -1,23 +1,18 @@
-import { Avatar } from "@/components/catalyst/avatar";
 import { Dropdown, DropdownButton, DropdownDivider, DropdownItem, DropdownLabel, DropdownMenu } from "@/components/catalyst/dropdown";
 import { Navbar, NavbarItem, NavbarSection, NavbarSpacer } from "@/components/catalyst/navbar";
-import { ArrowRightStartOnRectangleIcon, Cog8ToothIcon, InboxIcon, LightBulbIcon, MagnifyingGlassIcon, ShieldCheckIcon, UserIcon } from "@heroicons/react/16/solid";
+import { useAuth } from "@/contexts/AuthContext";
+import { ArrowRightStartOnRectangleIcon, Cog8ToothIcon, LightBulbIcon, ShieldCheckIcon, UserIcon } from "@heroicons/react/16/solid";
 
 const MobileNav = () => {
+  const { logout } = useAuth();
   return (
     <>
         <Navbar>
             <NavbarSpacer />
             <NavbarSection>
-            <NavbarItem href="/search" aria-label="Search">
-                <MagnifyingGlassIcon />
-            </NavbarItem>
-            <NavbarItem href="/inbox" aria-label="Inbox">
-                <InboxIcon />
-            </NavbarItem>
             <Dropdown>
                 <DropdownButton as={NavbarItem}>
-                <Avatar src="/profile-photo.jpg" square />
+                <UserIcon />
                 </DropdownButton>
                 <DropdownMenu className="min-w-64" anchor="bottom end">
                 <DropdownItem href="/my-profile">
@@ -38,7 +33,7 @@ const MobileNav = () => {
                     <DropdownLabel>Share feedback</DropdownLabel>
                 </DropdownItem>
                 <DropdownDivider />
-                <DropdownItem href="/logout">
+                <DropdownItem onClick={logout}>
                     <ArrowRightStartOnRectangleIcon />
                     <DropdownLabel>Sign out</DropdownLabel>
                 </DropdownItem>

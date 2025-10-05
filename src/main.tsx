@@ -21,6 +21,8 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import type { AxiosError } from 'axios';
 import axios from 'axios';
+import { AuthProvider } from './contexts/AuthContext';
+import { ProtectedRoute } from './components/ProtectedRoute';
 
 const router = createBrowserRouter([
   { 
@@ -33,15 +35,19 @@ const router = createBrowserRouter([
   { path: "/login", Component: Login },
   { path: "/signup", Component: Signup },
   {
-    path: "/app",
-    Component: RootLayout,
+    path: "/dashboard",
+    element: (
+      <ProtectedRoute>
+        <RootLayout />
+      </ProtectedRoute>
+    ),
     children: [
       { index: true, Component: Home },
-      { path: "technologies", 
+      { path: "technologies",
         children: [
           { index: true, Component: Technologies },
           { path: ":technologySlug", Component: TechnologyDetails }
-        ], 
+        ],
       },
       { path: "stacks", Component: Stacks },
       { path: "projects", Component: Projects },
@@ -72,9 +78,11 @@ const queryClient = new QueryClient({
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <QueryClientProvider client={queryClient}>
-      <RouterProvider router={router} />
-      <ReactQueryDevtools />
-    </QueryClientProvider>
+    <AuthProvider>
+      <QueryClientProvider client={queryClient}>
+        <RouterProvider router={router} />
+        <ReactQueryDevtools />
+      </QueryClientProvider>
+    </AuthProvider>
   </StrictMode>,
 );

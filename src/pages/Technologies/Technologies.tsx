@@ -5,10 +5,10 @@ import { AxiosError } from "axios";
 import ErrorPage from "../ErrorPage/ErrorPage";
 import { useNavigate } from "react-router";
 import { Input, InputGroup } from "@/components/catalyst/input";
-import { ChevronDownIcon, MagnifyingGlassIcon } from "@heroicons/react/16/solid";
-import { Dropdown, DropdownButton, DropdownItem, DropdownMenu } from "@/components/catalyst/dropdown";
+import { MagnifyingGlassIcon } from "@heroicons/react/16/solid";
 import { useCategories } from "@/api/queries/categories";
 import { useState } from "react";
+import { Listbox, ListboxLabel, ListboxOption } from "@/components/catalyst/listbox";
 
 const Technologies = () => {
   const navigate = useNavigate();
@@ -74,25 +74,25 @@ const Technologies = () => {
 
   return (
     <main className="w-full h-full">
-      <nav className="w-full mb-4 flex">
-        <div className="flex-1 mr-4">
+      <nav className="w-full mb-6 flex flex-col sm:flex-row gap-4">
+        <div className="flex-1 min-w-0">
           <InputGroup>
             <MagnifyingGlassIcon />
             <Input onChange={(e) => setSearch(e.target.value)} name="search" placeholder="Search&hellip;" aria-label="Search" />
           </InputGroup>
         </div>
-        <Dropdown>
-          <DropdownButton outline>
-            Categories
-          <ChevronDownIcon />
-          </DropdownButton>
-          <DropdownMenu>
-            <DropdownItem onClick={() => setCategoryId('')}>All</DropdownItem>
-            {categories?.map((category) => 
-              <DropdownItem onClick={() => setCategoryId(category.id)} value={search}>{category.name}</DropdownItem>
+        <div role="listbox" className="w-full sm:w-52 shrink-0">
+          <Listbox name="categories" placeholder={"Categories"} aria-label="technology category">
+            <ListboxOption value={"All"}>
+              <ListboxLabel>All</ListboxLabel>
+            </ListboxOption>
+            {categories?.map((category) =>
+              <ListboxOption value={category.name} onClick={() => setCategoryId(category.id)}>
+                <ListboxLabel>{category.name}</ListboxLabel>
+              </ListboxOption>
             )}
-          </DropdownMenu>
-        </Dropdown>
+          </Listbox>
+        </div>
       </nav>
       <section role="list" className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
         <>

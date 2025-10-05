@@ -1,15 +1,90 @@
 import { AuthLayout } from "@/components/catalyst/auth-layout";
 import { Button } from "@/components/catalyst/button";
 import { Checkbox, CheckboxField } from "@/components/catalyst/checkbox";
-import { Field, Label } from "@/components/catalyst/fieldset";
+import { ErrorMessage, Field, Label } from "@/components/catalyst/fieldset";
 import { Heading } from "@/components/catalyst/heading";
 import { Input } from "@/components/catalyst/input";
 import { Strong, Text, TextLink } from "@/components/catalyst/text";
+import type { UserLoginPayload } from "@/types/auth";
+import { AxiosError } from "axios";
+import { useState } from "react";
+import { useAuth } from "@/contexts/AuthContext";
+import { useNavigate, useLocation } from "react-router";
+import { Badge } from "@/components/catalyst/badge";
+
+type LoginFieldErrors = {
+  username: {
+    isError: boolean;
+    message: string;
+  };
+  password: {
+    isError: boolean;
+    message: string;
+  };
+}
 
 const Login = () => {
+  const { login } = useAuth();
+  const navigate = useNavigate();
+  const location = useLocation();
+  const [loginPayload, setLoginPayload] = useState<UserLoginPayload>({
+    username: '',
+    password: '',
+  });
+  const [loginFieldErrors, setLoginFieldErrors] = useState<LoginFieldErrors>({
+    username: {
+      isError: false,
+      message: ''
+    },
+    password: {
+      isError: false,
+      message: ''
+    }
+  });
+  const [error, setError] = useState<Error | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
+
+  const getErrorMessage = () => {
+    if (error && error instanceof AxiosError) {
+      return (
+        error.response?.data?.message ||
+        error.message ||
+        "Failed to login"
+      );
+    }
+    return "Failed to login";
+  };
+
+  const handleLogin = async () => {
+    if(loginPayload.username.length === 0 || loginPayload.password.length === 0) {
+      setLoginFieldErrors({
+        username: {
+          isError: loginPayload.username.length === 0,
+          message: loginPayload.username.length === 0 ? "Email field is required to login" : ''
+        },
+        password: {
+          isError: loginPayload.password.length === 0,
+          message: loginPayload.password.length === 0 ? "Password field is required to login" : ''
+        }
+      });
+    } else {
+      try {
+        setIsLoading(true);
+        setError(null);
+        await login(loginPayload);
+        const from = location.state?.from?.pathname || '/dashboard';
+        navigate(from, { replace: true });
+      } catch (err) {
+        setError(err as AxiosError);
+      } finally {
+        setIsLoading(false);
+      }
+    }
+  };
+
   return (
     <>
-      <section className="h-screen w-screen bg-slate-950">
+      <section className="h-full w-screen bg-slate-950">
         <AuthLayout>
           <form action="#" method="POST" className="grid w-full max-w-sm grid-cols-1 gap-8">
             <img
@@ -19,13 +94,40 @@ const Login = () => {
             />
             <Heading>Sign in to your account</Heading>
             <Field>
-              <Label>Email</Label>
-              <Input type="email" name="email" />
+              <Label>Username / Email</Label>
+              <Input
+                type="email"
+                name="email"
+                invalid={loginFieldErrors.username.isError}
+                value={loginPayload.username}
+                onChange={(e) => {
+                  setLoginPayload({...loginPayload, username: e.target.value });
+                  if (loginFieldErrors.username.isError) {
+                    setLoginFieldErrors({...loginFieldErrors, username: { isError: false, message: '' }});
+                  }
+                }}
+              />
+              {loginFieldErrors.username.message && <ErrorMessage>{loginFieldErrors.username.message}</ErrorMessage>}
             </Field>
             <Field>
               <Label>Password</Label>
-              <Input type="password" name="password" />
+              <Input
+                type="password"
+                name="password"
+                invalid={loginFieldErrors.password.isError}
+                value={loginPayload.password}
+                onChange={(e) => {
+                  setLoginPayload({...loginPayload, password: e.target.value });
+                  if (loginFieldErrors.password.isError) {
+                    setLoginFieldErrors({...loginFieldErrors, password: { isError: false, message: '' }});
+                  }
+                }}
+              />
+              {loginFieldErrors.password.message && <ErrorMessage>{loginFieldErrors.password.message}</ErrorMessage>}
             </Field>
+            { error && (
+              <Badge color="red" className="h-12 px-4">{getErrorMessage()}</Badge> 
+            )}
             <div className="flex items-center justify-between">
               <CheckboxField>
                 <Checkbox name="remember" />
@@ -37,8 +139,8 @@ const Login = () => {
                 </TextLink>
               </Text>
             </div>
-            <Button type="submit" className="w-full" color="indigo">
-              Login
+            <Button type='button' className="w-full" color="indigo" onClick={handleLogin} disabled={isLoading}>
+              {isLoading ? 'Logging in...' : 'Login'}
             </Button>
             <div>
                 <div className="flex items-center gap-x-6">
