@@ -13,7 +13,7 @@ export const useCategories = () => {
 
 const categoryService = {
     getCategories: async (): Promise<Category[]> => {
-        const response = await apiClient.get<Category[]>("/category/all");
+        const response = await apiClient.get<Category[]>("/api/category/all");
         return response.data;
     }
 };

@@ -1,13 +1,106 @@
 import { AuthLayout } from "@/components/catalyst/auth-layout";
+import { Badge } from "@/components/catalyst/badge";
 import { Button } from "@/components/catalyst/button";
-import { Field, Label } from "@/components/catalyst/fieldset";
+import { ErrorMessage, Field, Label } from "@/components/catalyst/fieldset";
 import { Heading } from "@/components/catalyst/heading";
 import { Input } from "@/components/catalyst/input";
+import { useAuth } from "@/hooks/useAuth";
+import type { UserSignupPayload } from "@/types/auth";
+import { HomeIcon } from "@heroicons/react/24/outline";
+import { AxiosError } from "axios";
+import { useState } from "react";
+import { Link, useNavigate } from "react-router";
+
+type SignupFieldErrors = {
+  email: {
+    isError: boolean;
+    message: string;
+  };
+  username: {
+    isError: boolean;
+    message: string;
+  };
+  password: {
+    isError: boolean;
+    message: string;
+  };
+}
 
 const Signup = () => {
+  const { signup } = useAuth();
+  const navigate = useNavigate();
+  const [signupPayload, setSignupPayload] = useState<UserSignupPayload>({
+    email: '',
+    username: '',
+    password: ''
+  });
+  const [signupFieldErrors, setSignupFieldErrors] = useState<SignupFieldErrors>({
+    email: {
+      isError: false,
+      message: '',
+    },
+    username: {
+      isError: false,
+      message: '',
+    },
+    password: {
+      isError: false,
+      message: '',
+    },
+  });
+  const [error, setError] = useState<Error | null>(null);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+
+  const getErrorMessage = (): string => {
+    if (error && error instanceof AxiosError) {
+      return (
+        error.response?.data?.message ||
+        error.message ||
+        "Failed to login"
+      );
+    }
+    return "Failed to login";
+  };
+
+  const handleSignup = async () => {
+    if (signupPayload.email.length === 0 || signupPayload.username.length === 0 || signupPayload.password.length === 0) {
+      setSignupFieldErrors({
+        email: {
+          isError: signupPayload.email.length === 0,
+          message: signupPayload.email.length === 0 ? "Email field is required" : "",
+        },
+        username: {
+          isError: signupPayload.username.length === 0,
+          message: signupPayload.username.length === 0 ? "Username field is required" : "",
+        },
+        password: {
+          isError: signupPayload.password.length === 0,
+          message: signupPayload.password.length === 0 ? "Password is required" : "",
+        }
+      });
+    } else {
+      try {
+        setIsLoading(true);
+        setError(null);
+        await signup(signupPayload);
+        navigate("/email-confirm");
+      } catch (err) {
+        setError(err as AxiosError);
+      } finally {
+        setIsLoading(false);
+      }
+    }
+  };
   return (
     <>
-      <section className="h-screen w-screen bg-slate-950">
+      <section className="h-full w-screen bg-slate-950 relative">
+        <Link
+          to="/"
+          className="absolute top-8 left-8 text-white hover:text-indigo-400 transition-colors z-10"
+          aria-label="Go to home"
+        >
+          <HomeIcon className="w-6 h-6"/>
+        </Link>
         <AuthLayout>
           <form action="#" method="POST" className="grid w-full max-w-sm grid-cols-1 gap-8">
             <img
@@ -18,13 +111,57 @@ const Signup = () => {
             <Heading>Sign up for your account</Heading>
             <Field>
               <Label>Email</Label>
-              <Input type="email" name="email" />
+              <Input
+                type="email"
+                name="email"
+                autoComplete="email"
+                invalid={signupFieldErrors.email.isError}
+                value={signupPayload.email}
+                onChange={(e) => {
+                  setSignupPayload({...signupPayload, email: e.target.value});
+                  if (signupFieldErrors.email.isError) {
+                    setSignupFieldErrors({...signupFieldErrors, email: { isError: false, message: "" }});
+                  }
+                }}
+              />
+              {signupFieldErrors.email.message && <ErrorMessage>{signupFieldErrors.email.message}</ErrorMessage>}
+            </Field>
+            <Field>
+              <Label>Username</Label>
+              <Input
+                type="text"
+                name="username"
+                autoComplete="username"
+                invalid={signupFieldErrors.username.isError}
+                value={signupPayload.username}
+                onChange={(e) => {
+                  setSignupPayload({...signupPayload, username: e.target.value});
+                  if (signupFieldErrors.username.isError) {
+                    setSignupFieldErrors({...signupFieldErrors, username: { isError: false, message: "" }});
+                  }
+                }}
+              />
+              {signupFieldErrors.username.message && <ErrorMessage>{signupFieldErrors.username.message}</ErrorMessage>}
             </Field>
             <Field>
               <Label>Password</Label>
-              <Input type="password" name="password" />
+              <Input
+                type="password"
+                name="password"
+                autoComplete="new-password"
+                invalid={signupFieldErrors.password.isError}
+                value={signupPayload.password}
+                onChange={(e) => {
+                  setSignupPayload({...signupPayload, password: e.target.value});
+                  if (signupFieldErrors.password.isError) {
+                    setSignupFieldErrors({...signupFieldErrors, password: { isError: false, message: "" }});
+                  }
+                }}
+              />
+              {signupFieldErrors.password.message && <ErrorMessage>{signupFieldErrors.password.message}</ErrorMessage>}
             </Field>
-            <Button type="submit" className="w-full" color="indigo">
+            {error && <Badge color="red" className="h-12 px-4">{getErrorMessage()}</Badge>}
+            <Button type="button" className="w-full" color="indigo" onClick={handleSignup} disabled={isLoading}>
               Sign up
             </Button>
             <div>
@@ -35,8 +172,8 @@ const Signup = () => {
                 </div>
 
                 <div className="mt-6 grid grid-cols-2 gap-4">
-                  <a
-                    href="#"
+                  <Button
+                    onClick={() => window.location.href = `${import.meta.env.VITE_API_BASE_URL}/oauth2/authorization/google`}
                     className="flex w-full items-center justify-center gap-3 rounded-md bg-white/10 px-3 py-2 text-sm font-semibold text-white inset-ring inset-ring-white/5 hover:bg-white/20 focus-visible:inset-ring-transparent"
                   >
                     <svg viewBox="0 0 24 24" aria-hidden="true" className="h-5 w-5">
@@ -58,10 +195,10 @@ const Signup = () => {
                       />
                     </svg>
                     <span className="text-sm/6 font-semibold">Google</span>
-                  </a>
+                  </Button>
 
-                  <a
-                    href="#"
+                  <Button
+                    onClick={() => window.location.href = `${import.meta.env.VITE_API_BASE_URL}/oauth2/authorization/github`}
                     className="flex w-full items-center justify-center gap-3 rounded-md bg-white/10 px-3 py-2 text-sm font-semibold text-white inset-ring inset-ring-white/5 hover:bg-white/20 focus-visible:inset-ring-transparent"
                   >
                     <svg fill="currentColor" viewBox="0 0 20 20" aria-hidden="true" className="size-5 fill-white">
@@ -72,7 +209,7 @@ const Signup = () => {
                       />
                     </svg>
                     <span className="text-sm/6 font-semibold">GitHub</span>
-                  </a>
+                  </Button>
                 </div>
               </div>
           </form>

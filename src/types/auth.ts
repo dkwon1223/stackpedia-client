@@ -8,7 +8,7 @@ export type UserLoginResponse = {
 }
 
 export type UserLoginPayload = {
-    username: string;
+    usernameOrEmail: string;
     password: string; 
 };
 
@@ -31,4 +31,5 @@ export interface AuthContextType {
     login: (loginCredentials: UserLoginPayload) => Promise<void>;
     logout: () => Promise<void>;
     signup: (signupCredentials: UserSignupPayload) => Promise<void>;
+    handleOAuthCallback: () => void;
 }

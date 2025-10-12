@@ -1,6 +1,6 @@
 import { Dropdown, DropdownButton, DropdownDivider, DropdownItem, DropdownLabel, DropdownMenu } from "@/components/catalyst/dropdown";
 import { Navbar, NavbarItem, NavbarSection, NavbarSpacer } from "@/components/catalyst/navbar";
-import { useAuth } from "@/contexts/AuthContext";
+import { useAuth } from "@hooks/useAuth";
 import { ArrowRightStartOnRectangleIcon, Cog8ToothIcon, LightBulbIcon, ShieldCheckIcon, UserIcon } from "@heroicons/react/16/solid";
 
 const MobileNav = () => {

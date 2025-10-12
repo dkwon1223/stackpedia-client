@@ -23,18 +23,18 @@ export const useTechnology = (technologySlug: string | undefined) => {
 
 const technologyService = {
   getTechnology: async (technologySlug: string): Promise<Technology> => {
-    const response = await apiClient.get<Technology>(`/technology?slug=${technologySlug}`);
+    const response = await apiClient.get<Technology>(`/api/technology?slug=${technologySlug}`);
     return response.data;
   },
   getTechnologies: async (): Promise<Technology[]> => {
-    const response = await apiClient.get<Technology[]>("/technology/all");
+    const response = await apiClient.get<Technology[]>("/api/technology/all");
     return response.data;
   },
   getTechnologiesByCategory: async (
     categoryId: string
   ): Promise<Technology[]> => {
     const response = await apiClient.get<Technology[]>(
-      `/technology/technologiesByCategory/${categoryId}`
+      `/api/technology/technologiesByCategory/${categoryId}`
     );
     return response.data;
   },

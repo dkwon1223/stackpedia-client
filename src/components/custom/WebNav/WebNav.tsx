@@ -5,7 +5,7 @@ import { ArrowRightEndOnRectangleIcon, ChevronDownIcon, ChevronUpIcon, UserIcon 
 import { WEB_NAV_CONFIG } from "@/constants/navigation";
 import { useLocation } from "react-router";
 import { type FC } from "react";
-import { useAuth } from "@/contexts/AuthContext";
+import { useAuth } from "@hooks/useAuth";
 
 const WebNav: FC = () => {
   const location = useLocation();

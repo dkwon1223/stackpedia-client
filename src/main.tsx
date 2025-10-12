@@ -23,6 +23,8 @@ import type { AxiosError } from 'axios';
 import axios from 'axios';
 import { AuthProvider } from './contexts/AuthContext';
 import { ProtectedRoute } from './components/ProtectedRoute';
+import EmailConfirm from './pages/EmailConfirm/EmailConfirm';
+import Oauth2Redirect from './pages/Oauth2Redirect/Oauth2Redirect';
 
 const router = createBrowserRouter([
   { 
@@ -34,6 +36,8 @@ const router = createBrowserRouter([
   },
   { path: "/login", Component: Login },
   { path: "/signup", Component: Signup },
+  { path: "/email-confirm", Component: EmailConfirm },
+  { path: "/oauth2-redirect", Component: Oauth2Redirect},
   {
     path: "/dashboard",
     element: (

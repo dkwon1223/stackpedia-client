@@ -8,12 +8,13 @@ import { Strong, Text, TextLink } from "@/components/catalyst/text";
 import type { UserLoginPayload } from "@/types/auth";
 import { AxiosError } from "axios";
 import { useState } from "react";
-import { useAuth } from "@/contexts/AuthContext";
-import { useNavigate, useLocation } from "react-router";
+import { useAuth } from "@/hooks/useAuth";
+import { useNavigate, useLocation, Link } from "react-router";
 import { Badge } from "@/components/catalyst/badge";
+import { HomeIcon } from "@heroicons/react/24/outline";
 
 type LoginFieldErrors = {
-  username: {
+  usernameOrEmail: {
     isError: boolean;
     message: string;
   };
@@ -28,11 +29,11 @@ const Login = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const [loginPayload, setLoginPayload] = useState<UserLoginPayload>({
-    username: '',
+    usernameOrEmail: '',
     password: '',
   });
   const [loginFieldErrors, setLoginFieldErrors] = useState<LoginFieldErrors>({
-    username: {
+    usernameOrEmail: {
       isError: false,
       message: ''
     },
@@ -42,9 +43,9 @@ const Login = () => {
     }
   });
   const [error, setError] = useState<Error | null>(null);
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
-  const getErrorMessage = () => {
+  const getErrorMessage = (): string => {
     if (error && error instanceof AxiosError) {
       return (
         error.response?.data?.message ||
@@ -56,15 +57,15 @@ const Login = () => {
   };
 
   const handleLogin = async () => {
-    if(loginPayload.username.length === 0 || loginPayload.password.length === 0) {
+    if (loginPayload.usernameOrEmail.length === 0 || loginPayload.password.length === 0) {
       setLoginFieldErrors({
-        username: {
-          isError: loginPayload.username.length === 0,
-          message: loginPayload.username.length === 0 ? "Email field is required to login" : ''
+        usernameOrEmail: {
+          isError: loginPayload.usernameOrEmail.length === 0,
+          message: loginPayload.usernameOrEmail.length === 0 ? "Email field is required" : ''
         },
         password: {
           isError: loginPayload.password.length === 0,
-          message: loginPayload.password.length === 0 ? "Password field is required to login" : ''
+          message: loginPayload.password.length === 0 ? "Password field is required" : ''
         }
       });
     } else {
@@ -84,7 +85,14 @@ const Login = () => {
 
   return (
     <>
-      <section className="h-full w-screen bg-slate-950">
+      <section className="h-full w-screen bg-slate-950 relative">
+        <Link
+          to="/"
+          className="absolute top-8 left-8 text-white hover:text-indigo-400 transition-colors z-10"
+          aria-label="Go to home"
+        >
+          <HomeIcon className="w-6 h-6"/>
+        </Link>
         <AuthLayout>
           <form action="#" method="POST" className="grid w-full max-w-sm grid-cols-1 gap-8">
             <img
@@ -98,22 +106,24 @@ const Login = () => {
               <Input
                 type="email"
                 name="email"
-                invalid={loginFieldErrors.username.isError}
-                value={loginPayload.username}
+                autoComplete="username"
+                invalid={loginFieldErrors.usernameOrEmail.isError}
+                value={loginPayload.usernameOrEmail}
                 onChange={(e) => {
-                  setLoginPayload({...loginPayload, username: e.target.value });
-                  if (loginFieldErrors.username.isError) {
-                    setLoginFieldErrors({...loginFieldErrors, username: { isError: false, message: '' }});
+                  setLoginPayload({...loginPayload, usernameOrEmail: e.target.value });
+                  if (loginFieldErrors.usernameOrEmail.isError) {
+                    setLoginFieldErrors({...loginFieldErrors, usernameOrEmail: { isError: false, message: '' }});
                   }
                 }}
               />
-              {loginFieldErrors.username.message && <ErrorMessage>{loginFieldErrors.username.message}</ErrorMessage>}
+              {loginFieldErrors.usernameOrEmail.message && <ErrorMessage>{loginFieldErrors.usernameOrEmail.message}</ErrorMessage>}
             </Field>
             <Field>
               <Label>Password</Label>
               <Input
                 type="password"
                 name="password"
+                autoComplete="current-password"
                 invalid={loginFieldErrors.password.isError}
                 value={loginPayload.password}
                 onChange={(e) => {
@@ -150,33 +160,33 @@ const Login = () => {
                 </div>
 
                 <div className="mt-6 grid grid-cols-2 gap-4">
-                  <a
-                    href="#"
+                  <Button
+                    onClick={() => window.location.href = `${import.meta.env.VITE_API_BASE_URL}/oauth2/authorization/google`}
                     className="flex w-full items-center justify-center gap-3 rounded-md bg-white/10 px-3 py-2 text-sm font-semibold text-white inset-ring inset-ring-white/5 hover:bg-white/20 focus-visible:inset-ring-transparent"
                   >
                     <svg viewBox="0 0 24 24" aria-hidden="true" className="h-5 w-5">
-                      <path
+                        <path
                         d="M12.0003 4.75C13.7703 4.75 15.3553 5.36002 16.6053 6.54998L20.0303 3.125C17.9502 1.19 15.2353 0 12.0003 0C7.31028 0 3.25527 2.69 1.28027 6.60998L5.27028 9.70498C6.21525 6.86002 8.87028 4.75 12.0003 4.75Z"
                         fill="#EA4335"
-                      />
-                      <path
+                        />
+                        <path
                         d="M23.49 12.275C23.49 11.49 23.415 10.73 23.3 10H12V14.51H18.47C18.18 15.99 17.34 17.25 16.08 18.1L19.945 21.1C22.2 19.01 23.49 15.92 23.49 12.275Z"
                         fill="#4285F4"
-                      />
-                      <path
+                        />
+                        <path
                         d="M5.26498 14.2949C5.02498 13.5699 4.88501 12.7999 4.88501 11.9999C4.88501 11.1999 5.01998 10.4299 5.26498 9.7049L1.275 6.60986C0.46 8.22986 0 10.0599 0 11.9999C0 13.9399 0.46 15.7699 1.28 17.3899L5.26498 14.2949Z"
                         fill="#FBBC05"
-                      />
-                      <path
+                        />
+                        <path
                         d="M12.0004 24.0001C15.2404 24.0001 17.9654 22.935 19.9454 21.095L16.0804 18.095C15.0054 18.82 13.6204 19.245 12.0004 19.245C8.8704 19.245 6.21537 17.135 5.2654 14.29L1.27539 17.385C3.25539 21.31 7.3104 24.0001 12.0004 24.0001Z"
                         fill="#34A853"
-                      />
+                        />
                     </svg>
                     <span className="text-sm/6 font-semibold">Google</span>
-                  </a>
+                  </Button>
 
-                  <a
-                    href="#"
+                  <Button
+                    onClick={() => window.location.href = `${import.meta.env.VITE_API_BASE_URL}/oauth2/authorization/github`}
                     className="flex w-full items-center justify-center gap-3 rounded-md bg-white/10 px-3 py-2 text-sm font-semibold text-white inset-ring inset-ring-white/5 hover:bg-white/20 focus-visible:inset-ring-transparent"
                   >
                     <svg fill="currentColor" viewBox="0 0 20 20" aria-hidden="true" className="size-5 fill-white">
@@ -187,7 +197,7 @@ const Login = () => {
                       />
                     </svg>
                     <span className="text-sm/6 font-semibold">GitHub</span>
-                  </a>
+                  </Button>
                 </div>
               </div>
             <Text>

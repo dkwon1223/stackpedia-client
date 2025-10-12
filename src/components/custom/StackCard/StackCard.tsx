@@ -1,4 +1,4 @@
-import { type FC } from 'react'
+import { type FC } from 'react';
 import DefaultStackImage from '@assets/stack-icons/default-stack.svg';
 import type { StackCardProps } from './props';
 import { EllipsisHorizontalCircleIcon, HeartIcon } from '@heroicons/react/16/solid';
@@ -52,7 +52,7 @@ const StackCard: FC<StackCardProps> = ({ stack }) => {
         </div>
         </div>
     </article>
-  )
-}
+  );
+};
 
-export default StackCard
+export default StackCard;
