@@ -29,7 +29,9 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     const userInfoCookie = getCookie('userInfo');
     if (userInfoCookie) {
       try {
-        const userInfo = JSON.parse(userInfoCookie);
+        // Decode the URL-encoded cookie value before parsing
+        const decodedUserInfo = decodeURIComponent(userInfoCookie);
+        const userInfo = JSON.parse(decodedUserInfo);
         setUser(userInfo);
       } catch (error) {
         console.error('Failed to parse user info cookie:', error);
@@ -72,7 +74,9 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
     if (userInfoCookie) {
       try {
-        const userInfo: UserDetails = JSON.parse(userInfoCookie);
+        // Decode the URL-encoded cookie value before parsing
+        const decodedUserInfo = decodeURIComponent(userInfoCookie);
+        const userInfo: UserDetails = JSON.parse(decodedUserInfo);
         setUser(userInfo);
       } catch (error) {
         console.error('Failed to parse OAuth user info:', error);
