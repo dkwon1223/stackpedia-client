@@ -25,6 +25,7 @@ import { AuthProvider } from './contexts/AuthContext';
 import { ProtectedRoute } from './components/ProtectedRoute';
 import EmailConfirm from './pages/EmailConfirm/EmailConfirm';
 import Oauth2Redirect from './pages/Oauth2Redirect/Oauth2Redirect';
+import EmailVerify from './pages/EmailVerify/EmailVerify';
 
 const router = createBrowserRouter([
   { 
@@ -37,6 +38,7 @@ const router = createBrowserRouter([
   { path: "/login", Component: Login },
   { path: "/signup", Component: Signup },
   { path: "/email-confirm", Component: EmailConfirm },
+  { path: "/email-verify", Component: EmailVerify },
   { path: "/oauth2-redirect", Component: Oauth2Redirect},
   {
     path: "/dashboard",
