@@ -29,7 +29,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     const userInfoCookie = getCookie('userInfo');
     if (userInfoCookie) {
       try {
-        // Decode the URL-encoded cookie value before parsing
+        // URL-decode the cookie value before parsing JSON
         const decodedUserInfo = decodeURIComponent(userInfoCookie);
         const userInfo = JSON.parse(decodedUserInfo);
         setUser(userInfo);
@@ -74,7 +74,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
     if (userInfoCookie) {
       try {
-        // Decode the URL-encoded cookie value before parsing
+        // URL-decode the cookie value before parsing JSON
         const decodedUserInfo = decodeURIComponent(userInfoCookie);
         const userInfo: UserDetails = JSON.parse(decodedUserInfo);
         setUser(userInfo);
