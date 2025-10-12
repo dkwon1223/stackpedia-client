@@ -1,19 +1,21 @@
 import { Avatar } from "@/components/catalyst/avatar";
 import { Dropdown, DropdownButton, DropdownDivider, DropdownItem, DropdownLabel, DropdownMenu } from "@/components/catalyst/dropdown";
 import { Sidebar, SidebarBody, SidebarFooter, SidebarHeader, SidebarHeading, SidebarItem, SidebarLabel, SidebarSection, SidebarSpacer } from "@/components/catalyst/sidebar";
-import { ChevronDownIcon, ChevronUpIcon, UserIcon } from "@heroicons/react/16/solid";
+import { ArrowRightEndOnRectangleIcon, ChevronDownIcon, ChevronUpIcon, UserIcon } from "@heroicons/react/16/solid";
 import { WEB_NAV_CONFIG } from "@/constants/navigation";
 import { useLocation } from "react-router";
 import { type FC } from "react";
+import { useAuth } from "@hooks/useAuth";
 
 const WebNav: FC = () => {
   const location = useLocation();
+  const { user, logout } = useAuth();
   
   const pathMatcher = (path: string, href: string = ''): boolean => {
     if(path === href) {
         return true;
     } else {
-        return path.replace("/app", "").includes(href);
+        return path.replace("/dashboard", "").includes(href);
     }
   };
 
@@ -75,9 +77,9 @@ const WebNav: FC = () => {
                 <span className="flex min-w-0 items-center gap-3">
                   <UserIcon className="h-8"/>
                   <span className="min-w-0">
-                    <span className="block truncate text-sm/5 font-medium text-zinc-950 dark:text-white">{WEB_NAV_CONFIG.footer.userName}</span>
+                    <span className="block truncate text-sm/5 font-medium text-zinc-950 dark:text-white">{user?.username}</span>
                     <span className="block truncate text-xs/5 font-normal text-zinc-500 dark:text-zinc-400">
-                      {WEB_NAV_CONFIG.footer.userEmail}
+                      {user?.email}
                     </span>
                   </span>
                 </span>
@@ -93,6 +95,10 @@ const WebNav: FC = () => {
                     <DropdownLabel>{item.label}</DropdownLabel>
                     </DropdownItem>
                 )}
+                <DropdownItem onClick={logout}>
+                  <ArrowRightEndOnRectangleIcon/>
+                  <DropdownLabel>Signout</DropdownLabel>
+                </DropdownItem>
               </DropdownMenu>
             </Dropdown>
           </SidebarFooter>

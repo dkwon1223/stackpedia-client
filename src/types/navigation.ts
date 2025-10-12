@@ -13,8 +13,6 @@ export type WebNavConfig = {
         lowerNavItems: BaseNavItem[];
     }
     footer: {
-        userName: string;
-        userEmail: string;
         dropdownItems: DropdownItem[];
     }
 }

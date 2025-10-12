@@ -1,5 +1,5 @@
 import type { HeroNavConfig, WebNavConfig } from "@/types/navigation";
-import { ArrowRightStartOnRectangleIcon, Cog8ToothIcon, HomeIcon, InformationCircleIcon, LightBulbIcon, PresentationChartBarIcon, QuestionMarkCircleIcon, ShieldCheckIcon, SparklesIcon, Square3Stack3DIcon, UserIcon, WrenchScrewdriverIcon } from "@heroicons/react/16/solid";
+import { Cog8ToothIcon, HomeIcon, InformationCircleIcon, LightBulbIcon, PresentationChartBarIcon, QuestionMarkCircleIcon, ShieldCheckIcon, SparklesIcon, Square3Stack3DIcon, UserIcon, WrenchScrewdriverIcon } from "@heroicons/react/16/solid";
 
 export const HERO_NAV_CONFIG: HeroNavConfig = {
     heroNavItems: [
@@ -51,7 +51,7 @@ export const WEB_NAV_CONFIG: WebNavConfig = {
     body: {
         mainNavItems: [
             {
-                href: '/app',
+                href: '/dashboard',
                 icon: HomeIcon,
                 label: 'Home'
             },
@@ -85,8 +85,6 @@ export const WEB_NAV_CONFIG: WebNavConfig = {
         ]
     },
     footer: {
-        userName: 'Erica',
-        userEmail: 'erica@example.com',
         dropdownItems: [
             {
                 href: 'my-profile',
@@ -114,11 +112,6 @@ export const WEB_NAV_CONFIG: WebNavConfig = {
             {
                 divider: true
             },
-            {
-                href: '/',
-                icon: ArrowRightStartOnRectangleIcon,
-                label: 'Sign out'
-            }
         ]
     }
 };
